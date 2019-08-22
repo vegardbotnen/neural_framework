@@ -6,9 +6,20 @@ Home-page: https://github.com/volanpar/neural_framework
 Author: Volanpar
 Author-email: 
 License: UNKNOWN
-Description: # neural_framework
+Description: ## Neural Framework
+        
         Simple, but yet powerful neural computation framework for fast prototyping.
         
+        #### Import
+        ```python
+        from neural_framework import brain
+        ```
+        
+        
+        #### Use
+        ```python
+        
+        ```
 Platform: UNKNOWN
 Classifier: Programming Language :: Python :: 3.7
 Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
