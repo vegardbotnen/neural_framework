@@ -94,7 +94,7 @@ def fully_connected(shape):
 
             # create synapses from alle pre-layer neurons
             for pre_neuron_id in prev_layer:
-                weight, delay = 1.0, 1.0
+                weight, delay = 1.0, 1
                 fc.add_synapse(pre_neuron_id, post_neuron_id, weight, delay)
 
         # switch to next layer
