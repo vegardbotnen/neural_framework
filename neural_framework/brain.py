@@ -59,7 +59,6 @@ class Brain:
                 weight, delay = synapse["weight"], synapse["delay"]
                 pre_neuron = self.graph.nodes[pre_neuron_id]["neuron"]
                 activation = pre_neuron.get_activation(delay-1)
-                print(f"Pre id: {pre_neuron_id} -> ({delay}) ->  post id: {post_neuron_id} -- Activation: {activation}")
                 excitement += activation * weight
             post_neuron.excite(excitement)
 
@@ -86,23 +85,21 @@ def fully_connected(shape):
     for _ in range(shape[0]):
         neuron_id = fc.add_neuron()
         prev_layer.append(neuron_id)
-        print(f"New input neuron: {neuron_id}")
 
     # create fully connected hidden- and output layers
     for n_neurons in shape[1:]:
         for _ in range(n_neurons):
             post_neuron_id = fc.add_neuron()
             tmp_layer.append(post_neuron_id)
-            print(f"New other neuron: {post_neuron_id}")
 
             # create synapses from alle pre-layer neurons
             for pre_neuron_id in prev_layer:
-                print(f"Synapse from {pre_neuron_id} -> {post_neuron_id}")
                 weight, delay = 1.0, 1.0
                 fc.add_synapse(pre_neuron_id, post_neuron_id, weight, delay)
 
         # switch to next layer
         prev_layer = tmp_layer
+        tmp_layer = None
 
     # return fully-connected
     return fc
