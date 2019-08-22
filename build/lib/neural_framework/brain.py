@@ -99,7 +99,7 @@ def fully_connected(shape):
 
         # switch to next layer
         prev_layer = tmp_layer
-        tmp_layer = None
+        tmp_layer = []
 
     # return fully-connected
     return fc
