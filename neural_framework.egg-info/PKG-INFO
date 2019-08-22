@@ -1,0 +1,15 @@
+Metadata-Version: 2.1
+Name: neural-framework
+Version: 0.0.0
+Summary: Neural computation framework.
+Home-page: https://github.com/volanpar/neural_framework
+Author: Volanpar
+Author-email: 
+License: UNKNOWN
+Description: # neural_framework
+        Simple, but yet powerful neural computation framework for fast prototyping.
+        
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3.7
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Description-Content-Type: text/markdown

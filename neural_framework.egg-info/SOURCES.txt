@@ -1,0 +1,7 @@
+README.md
+setup.py
+neural_framework.egg-info/PKG-INFO
+neural_framework.egg-info/SOURCES.txt
+neural_framework.egg-info/dependency_links.txt
+neural_framework.egg-info/requires.txt
+neural_framework.egg-info/top_level.txt
