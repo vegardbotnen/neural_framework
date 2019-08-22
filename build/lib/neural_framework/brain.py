@@ -70,35 +70,41 @@ class Brain:
 
     def show(self):
         pos = nx.drawing.layout.random_layout(self.graph)
+        print(pos)
         nx.draw_networkx(self.graph, pos=pos, with_labels=True)
-        nx.draw_networkx_edge_labels(self.graph, pos=pos)
+        # nx.draw_networkx_edge_labels(self.graph, pos=pos)
         plt.show()
 
 
+# layout
+def fully_connected(shape):
+    fc = Brain()
+    prev_layer = []
+    tmp_layer = []
 
-b = Brain()
-i0 = b.add_neuron()
-i1 = b.add_neuron()
-o0 = b.add_neuron()
-o1 = b.add_neuron()
+    # create input neurons
+    for _ in range(shape[0]):
+        neuron_id = fc.add_neuron()
+        prev_layer.append(neuron_id)
+        print(f"New input neuron: {neuron_id}")
 
-b.add_synapse(i0, o0, 1.0, 1)
-b.add_synapse(i1, o0, 1.0, 2)
-b.add_synapse(i0, o1, 1.0, 1)
-b.add_synapse(i1, o1, 1.0, 2)
+    # create fully connected hidden- and output layers
+    for n_neurons in shape[1:]:
+        for _ in range(n_neurons):
+            post_neuron_id = fc.add_neuron()
+            tmp_layer.append(post_neuron_id)
+            print(f"New other neuron: {post_neuron_id}")
 
-b.excite_neuron(i0, 1)
-b.excite_neuron(i1, 1)
+            # create synapses from alle pre-layer neurons
+            for pre_neuron_id in prev_layer:
+                print(f"Synapse from {pre_neuron_id} -> {post_neuron_id}")
+                weight, delay = 1.0, 1.0
+                fc.add_synapse(pre_neuron_id, post_neuron_id, weight, delay)
 
-for i in range(10):
-    print(f"[{i}] Step:")
-    b.step()
-    print()
+        # switch to next layer
+        prev_layer = tmp_layer
 
-outputs = b.get_activation([o0])
-print(f"Outputs: {outputs}")
-
-# print(f"N0: {n0}, N1: {n1}")
-
+    # return fully-connected
+    return fc
 
 
