@@ -2,6 +2,7 @@ README.md
 setup.py
 neural_framework/__init__.py
 neural_framework/brain.py
+neural_framework/test.py
 neural_framework.egg-info/PKG-INFO
 neural_framework.egg-info/SOURCES.txt
 neural_framework.egg-info/dependency_links.txt

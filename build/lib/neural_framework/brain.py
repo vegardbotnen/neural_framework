@@ -35,18 +35,22 @@ class Brain:
         return identifier
 
     def add_synapse(self, from_id, to_id, weight, delay):
+        assert(delay > 0)
         self.graph.add_edge(from_id, to_id, weight=weight, delay=delay)
 
+    def get_neuron(self, identifier):
+        return self.graph.nodes[identifier]["neuron"]
+
     def excite_neuron(self, identifier, value):
-        neuron = self.graph.nodes[identifier]["neuron"]
+        neuron = self.get_neuron(identifier)
         neuron.excite(value)
 
-    def get_activation(self, neuron_ids):
+    def get_activation(self, neuron_ids, t=0):
         activation = []
         for neuron_id in neuron_ids:
             if neuron_id in self.graph.nodes:
-                neuron = self.graph.nodes[neuron_id]["neuron"]
-                activation.append(neuron.get_activation(t=0))
+                neuron = self.get_neuron(neuron_id)
+                activation.append(neuron.get_activation(t=t))
         return activation
 
     def step(self):
@@ -64,8 +68,12 @@ class Brain:
 
         # calculate activation for each neuron
         for neuron_id in self.graph.nodes:
-            neuron = self.graph.nodes[neuron_id]["neuron"]
+            neuron = self.get_neuron(neuron_id)
             neuron.step()
+    
+    def step_n(self, n):
+        for _ in range(n):
+            self.step()
 
     def show(self):
         pos = nx.drawing.layout.random_layout(self.graph)
@@ -73,6 +81,14 @@ class Brain:
         nx.draw_networkx(self.graph, pos=pos, with_labels=True)
         # nx.draw_networkx_edge_labels(self.graph, pos=pos)
         plt.show()
+
+    @property
+    def num_neurons(self):
+        return len(self.graph.nodes)
+
+    @property
+    def num_synapses(self):
+        return self.graph.number_of_edges()
 
 
 # layout
