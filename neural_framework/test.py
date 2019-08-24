@@ -15,7 +15,7 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(2, brain.num_neurons)
         brain.add_synapse(n1, n2, 0.0, 1)
         self.assertEqual(1, brain.num_synapses)
-    
+
     def test_connection(self):
         brain = Brain()
         n1 = brain.add_neuron()
@@ -50,7 +50,7 @@ class TestStringMethods(unittest.TestCase):
         model.layers[1].set_weights([np.full(shape=(2,1), fill_value=w), np.zeros(shape=(1,))])
         model.compile("sgd", "mse")
         y_keras = model.predict(np.array([x]))[0][0]
-        
+
         # brain
         brain = Brain()
         i1 = brain.add_neuron()

@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: neural-framework
-Version: 0.0.6
+Version: 0.0.7
 Summary: Neural computation framework.
 Home-page: https://github.com/volanpar/neural_framework
 Author: Volanpar
@@ -18,6 +18,11 @@ Description: ## Neural Framework
         ### Upgrade with pip
         ```
         pip install --upgrade git+https://github.com/vegardbotnen/neural_framework.git
+        ```
+        
+        ### Build new package
+        ```
+        python setup.py sdist bdist_wheel
         ```
         
         
@@ -38,6 +43,7 @@ Description: ## Neural Framework
         
         fc.show()
         ```
+        
 Platform: UNKNOWN
 Classifier: Programming Language :: Python :: 3.7
 Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)

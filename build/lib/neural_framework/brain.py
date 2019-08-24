@@ -1,14 +1,20 @@
+import numpy as np
 import networkx as nx
 import matplotlib.pyplot as plt
 from collections import deque
 import uuid
 
 class Neuron:
-    def __init__(self, identifier):
+    def __init__(self, identifier, activation_fn):
         self.identifier = identifier
+        self.activation_fn = {
+            'sigmoid': lambda x: ((1 / (1 + np.exp(-x))) * 2) - 1, # modifier to range -1.0 -> 1.0
+            'relu': lambda x: x if x > 0 else 0,
+            'linear': lambda x: x
+        }[activation_fn]
         self.excitement = 0.0
         self.history = deque([0.0]*20,20)
-        self.activation_function = lambda x: x
+
 
     def excite(self, value):
         self.excitement += value
@@ -17,22 +23,22 @@ class Neuron:
         return self.history[t]
 
     def step(self):
-        activation = self.activation_function(self.excitement)
+        activation = self.activation_fn(self.excitement)
         self.excitement = 0.0
         self.history.appendleft(activation)
 
     def __repr__(self):
-        return "Neuron: " + str(self.identifier)
+        return f"Neuron: {self.identifier} ({self.activation_fn})"
 
 
 class Brain:
     def __init__(self):
         self.graph = nx.DiGraph()
 
-    def add_neuron(self, identifier=None):
+    def add_neuron(self, identifier=None, activation_fn='linear'):
         if not identifier:
             identifier = uuid.uuid4()
-        new_neuron = Neuron(identifier)
+        new_neuron = Neuron(identifier, activation_fn)
         self.graph.add_node(identifier, neuron=new_neuron)
         return identifier
 
@@ -72,14 +78,13 @@ class Brain:
         for neuron_id in self.graph.nodes:
             neuron = self.get_neuron(neuron_id)
             neuron.step()
-    
+
     def step_n(self, n):
         for _ in range(n):
             self.step()
 
     def show(self):
         pos = nx.drawing.layout.random_layout(self.graph)
-        print(pos)
         nx.draw_networkx(self.graph, pos=pos, with_labels=True)
         # nx.draw_networkx_edge_labels(self.graph, pos=pos)
         plt.show()
@@ -91,7 +96,6 @@ class Brain:
     @property
     def num_synapses(self):
         return self.graph.number_of_edges()
-
 
 # layout
 def fully_connected(shape):
@@ -121,5 +125,3 @@ def fully_connected(shape):
 
     # return fully-connected
     return fc
-
-

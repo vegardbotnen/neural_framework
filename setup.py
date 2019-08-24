@@ -3,11 +3,11 @@ from setuptools import setup, find_packages
 with open("README.md", "r") as readme_file:
     readme = readme_file.read()
 
-requirements = ["networkx", "matplotlib"]
+requirements = ["networkx", "matplotlib", "numpy"]
 
 setup(
     name="neural_framework",
-    version="0.0.6",
+    version="0.0.7",
     author="Volanpar",
     author_email="",
     description="Neural computation framework.",
