@@ -12,6 +12,11 @@ pip install git+https://github.com/vegardbotnen/neural_framework.git
 pip install --upgrade git+https://github.com/vegardbotnen/neural_framework.git
 ```
 
+### Build new package
+```
+python setup.py sdist bdist_wheel
+```
+
 
 ### How To
 ```python
