@@ -1,6 +1,7 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 from collections import deque
+import uuid
 
 class Neuron:
     def __init__(self, identifier):
@@ -28,8 +29,9 @@ class Brain:
     def __init__(self):
         self.graph = nx.DiGraph()
 
-    def add_neuron(self):
-        identifier = len(self.graph.nodes)
+    def add_neuron(self, identifier=None):
+        if not identifier:
+            identifier = uuid.uuid4()
         new_neuron = Neuron(identifier)
         self.graph.add_node(identifier, neuron=new_neuron)
         return identifier

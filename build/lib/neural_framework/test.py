@@ -70,6 +70,21 @@ class TestStringMethods(unittest.TestCase):
 
         self.assertAlmostEqual(y_keras, y_brain)
 
+    def test_custom_identifier(self):
+        brain = Brain()
+        n1 = brain.add_neuron(2352354)
+        n2 = brain.add_neuron(2422340)
+        brain.add_synapse(n1, n2, 1.0, 1)
+        neuron1 = brain.get_neuron(n1)
+        neuron2 = brain.get_neuron(n2)
+        self.assertEqual(0.0, neuron1.excitement)
+        self.assertEqual(0.0, neuron2.excitement)
+        neuron1.excite(1.0)
+        self.assertEqual(1.0, neuron1.excitement)
+        brain.step()
+        brain.step()
+        self.assertEqual(1.0, neuron2.get_activation(0))
+
 
 if __name__ == '__main__':
     unittest.main()
