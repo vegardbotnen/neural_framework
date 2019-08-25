@@ -6,7 +6,7 @@ import uuid
 
 
 class Neuron:
-    def __init__(self, identifier, activation_fn):
+    def __init__(self, identifier, activation_fn, bias):
         self.identifier = identifier
         self.activation_fn = {
             # modifier to range -1.0 -> 1.0
@@ -14,6 +14,7 @@ class Neuron:
             'relu': lambda x: x if x > 0 else 0,
             'linear': lambda x: x
         }[activation_fn]
+        self.bias = bias
         self.excitement = 0.0
         self.history = deque([0.0]*20, 20)
 
@@ -24,7 +25,7 @@ class Neuron:
         return self.history[t]
 
     def step(self):
-        activation = self.activation_fn(self.excitement)
+        activation = self.activation_fn(self.excitement) + self.bias
         self.excitement = 0.0
         self.history.appendleft(activation)
 
@@ -42,10 +43,10 @@ class Brain:
     def __init__(self):
         self.graph = nx.DiGraph()
 
-    def add_neuron(self, identifier=None, activation_fn='linear'):
+    def add_neuron(self, identifier=None, activation_fn='linear', bias=0.0):
         if not identifier:
             identifier = uuid.uuid4()
-        new_neuron = Neuron(identifier, activation_fn)
+        new_neuron = Neuron(identifier, activation_fn, bias)
         self.graph.add_node(identifier, neuron=new_neuron)
         return identifier
 
