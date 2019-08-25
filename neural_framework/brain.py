@@ -25,7 +25,7 @@ class Neuron:
         return self.history[t]
 
     def step(self):
-        activation = self.activation_fn(self.excitement) + self.bias
+        activation = self.activation_fn(self.excitement + self.bias)
         self.excitement = 0.0
         self.history.appendleft(activation)
 
