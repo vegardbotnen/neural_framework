@@ -7,7 +7,7 @@ requirements = ["networkx", "matplotlib", "numpy"]
 
 setup(
     name="neural_framework",
-    version="0.0.7",
+    version="0.0.8",
     author="Volanpar",
     author_email="",
     description="Neural computation framework.",

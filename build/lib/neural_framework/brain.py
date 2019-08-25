@@ -4,17 +4,18 @@ import matplotlib.pyplot as plt
 from collections import deque
 import uuid
 
+
 class Neuron:
     def __init__(self, identifier, activation_fn):
         self.identifier = identifier
         self.activation_fn = {
-            'sigmoid': lambda x: ((1 / (1 + np.exp(-x))) * 2) - 1, # modifier to range -1.0 -> 1.0
+            # modifier to range -1.0 -> 1.0
+            'sigmoid': lambda x: ((1 / (1 + np.exp(-x))) * 2) - 1,
             'relu': lambda x: x if x > 0 else 0,
             'linear': lambda x: x
         }[activation_fn]
         self.excitement = 0.0
-        self.history = deque([0.0]*20,20)
-
+        self.history = deque([0.0]*20, 20)
 
     def excite(self, value):
         self.excitement += value
@@ -32,6 +33,12 @@ class Neuron:
 
 
 class Brain:
+    ACTIVATIONS = [
+        "linear",
+        "sigmoid",
+        "relu",
+    ]
+
     def __init__(self):
         self.graph = nx.DiGraph()
 
@@ -86,7 +93,7 @@ class Brain:
     def show(self):
         pos = nx.drawing.layout.random_layout(self.graph)
         nx.draw_networkx(self.graph, pos=pos, with_labels=True)
-        # nx.draw_networkx_edge_labels(self.graph, pos=pos)
+        #nx.draw_networkx_edge_labels(self.graph, pos=pos)
         plt.show()
 
     @property
@@ -98,6 +105,8 @@ class Brain:
         return self.graph.number_of_edges()
 
 # layout
+
+
 def fully_connected(shape):
     fc = Brain()
     prev_layer = []
